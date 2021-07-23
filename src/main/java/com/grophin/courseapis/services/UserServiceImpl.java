@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserServiceInterface {
@@ -53,5 +54,10 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public UserDetails getUserDetails(String email) throws Exception {
         return this.userDetailsRepo.findByUsertEmail(email);
+    }
+
+    @Override
+    public List<UserDetails> getUserDetails() throws Exception {
+        return this.userDetailsRepo.findAll();
     }
 }

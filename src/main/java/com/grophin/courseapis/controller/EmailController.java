@@ -2,7 +2,6 @@ package com.grophin.courseapis.controller;
 
 import com.grophin.courseapis.dto.request.EmailRequest;
 import com.grophin.courseapis.dto.response.EmailResponse;
-import com.grophin.courseapis.services.EmailInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

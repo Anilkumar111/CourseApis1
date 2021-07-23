@@ -87,19 +87,6 @@ public class CourseServiceImpl implements CourseServiceInterface {
     }
 
     @Override
-    public List<CourseDetails> fetchByStatus(String status) throws Exception {
-        List<CourseDetails> courseDetails = new ArrayList<>();
-//        List<TicketStatus> ticketStatuses = this.ticketStatusRepo.findByStatus(status);
-//        ticketStatuses.forEach(
-//                status1->{
-//                    CourseDetails courseDetails1 = this.courseDetailsRepo.findByTicketId(status1.getTicketId());
-//                    courseDetails.add(courseDetails1);
-//                }
-//        );
-        return courseDetails;
-    }
-
-    @Override
     public UpdateResponse updateDetails(UpdateRequest updateRequest) throws Exception {
 
         UpdateResponse updateResponse = new UpdateResponse();

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -45,4 +46,18 @@ public class UserController {
     ResponseEntity<UserDetails> getAgentDetails(@PathVariable String email) throws Exception{
         return new ResponseEntity<>(agentServiceInterface.getUserDetails(email), HttpStatus.OK);
     }
+
+    @GetMapping(
+            path = "/fetch/all",
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE
+            }
+    )
+    ResponseEntity<List<UserDetails>> getDetails() throws Exception{
+        return new ResponseEntity<>(agentServiceInterface.getUserDetails(), HttpStatus.OK);
+    }
+
+
+
+
 }

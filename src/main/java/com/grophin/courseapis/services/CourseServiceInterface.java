@@ -15,7 +15,6 @@ public interface CourseServiceInterface {
     CourseDetails fetchByCourseId(String ticketId) throws Exception;
     List<CourseDetails> fetchByUserName(String userName) throws Exception;
     List<CourseDetails> fetchByTitle(String title) throws Exception;
-    List<CourseDetails> fetchByStatus(String status) throws Exception;
     UpdateResponse updateDetails(UpdateRequest updateRequest) throws Exception;
     UpdateResponse updateStatus(UpdateRequest updateRequest) throws Exception;
     UpdateResponse updateResponse(UpdateRequest updateRequest) throws Exception;
