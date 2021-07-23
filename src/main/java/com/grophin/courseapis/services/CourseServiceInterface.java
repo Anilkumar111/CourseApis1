@@ -1,6 +1,7 @@
 package com.grophin.courseapis.services;
 
 import com.grophin.courseapis.dto.request.CourseCreateRequest;
+import com.grophin.courseapis.dto.request.DeleteRequest;
 import com.grophin.courseapis.dto.request.UpdateRequest;
 import com.grophin.courseapis.dto.response.CreateResponse;
 import com.grophin.courseapis.dto.response.UpdateResponse;
@@ -16,7 +17,5 @@ public interface CourseServiceInterface {
     List<CourseDetails> fetchByUserName(String userName) throws Exception;
     List<CourseDetails> fetchByTitle(String title) throws Exception;
     UpdateResponse updateDetails(UpdateRequest updateRequest) throws Exception;
-    UpdateResponse updateStatus(UpdateRequest updateRequest) throws Exception;
-    UpdateResponse updateResponse(UpdateRequest updateRequest) throws Exception;
-    UpdateResponse deleteTicket(String ticketId) throws Exception;
+    UpdateResponse deleteCourse(DeleteRequest deleteRequest) throws Exception;
 }

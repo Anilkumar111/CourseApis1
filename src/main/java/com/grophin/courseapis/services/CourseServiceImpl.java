@@ -2,11 +2,13 @@ package com.grophin.courseapis.services;
 
 import com.grophin.courseapis.constants.Constants;
 import com.grophin.courseapis.dto.request.CourseCreateRequest;
+import com.grophin.courseapis.dto.request.DeleteRequest;
 import com.grophin.courseapis.dto.request.UpdateRequest;
 import com.grophin.courseapis.dto.response.CreateResponse;
 import com.grophin.courseapis.dto.response.UpdateResponse;
 import com.grophin.courseapis.models.*;
 import com.grophin.courseapis.repos.CourseDetailsRepo;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,127 +92,74 @@ public class CourseServiceImpl implements CourseServiceInterface {
     public UpdateResponse updateDetails(UpdateRequest updateRequest) throws Exception {
 
         UpdateResponse updateResponse = new UpdateResponse();
-//        try{
-//            CourseDetails courseDetails = this.courseDetailsRepo.findByTicketId(updateRequest.getTicketId());
-//
-//            if(updateRequest.getDataMap().get(Constants.CUSTOMER) != null){
-//                courseDetails.setContents(updateRequest.getDataMap().get(Constants.CUSTOMER));
-//            }
-//
-//            if(updateRequest.getDataMap().get(Constants.DESCRIPTION) != null){
-//                courseDetails.setDescription(updateRequest.getDataMap().get(Constants.DESCRIPTION));
-//            }
-//
-//            if(updateRequest.getDataMap().get(Constants.TYPE) != null){
-//                courseDetails.setType(updateRequest.getDataMap().get(Constants.TYPE));
-//            }
-//
-//            if(updateRequest.getDataMap().get(Constants.PRIORITY) != null){
-//                courseDetails.setPriority(Integer.parseInt(updateRequest.getDataMap().get(Constants.PRIORITY)));
-//            }
-//
-//            if(updateRequest.getDataMap().get(Constants.TITLE) != null){
-//                courseDetails.setTitle(updateRequest.getDataMap().get(Constants.TITLE));
-//            }
-//
-//            if(updateRequest.getDataMap().get(Constants.DEADLINE) != null){
-//                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(updateRequest.getDataMap().get(Constants.DEADLINE));
-//                courseDetails.setDeadline(date);
-//            }
-//
-//            this.courseDetailsRepo.save(courseDetails);
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Successfully Updated.");
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//
-//        }
-//        catch (Exception ex){
-//            StringWriter stringWriter = new StringWriter();
-//            ex.printStackTrace(new PrintWriter(stringWriter));
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Exception while updating details\n."+stringWriter);
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//        }
+        try{
+            CourseDetails courseDetails = this.courseDetailsRepo.findByCourseId(updateRequest.getCourseId());
+            if(courseDetails.getCreateUser().equalsIgnoreCase(updateRequest.getUsername())){
+
+            if(updateRequest.getDataMap().get(Constants.CONTENTS) != null){
+                courseDetails.setContents(updateRequest.getDataMap().get(Constants.CONTENTS));
+            }
+
+            if(updateRequest.getDataMap().get(Constants.DESCRIPTION) != null){
+                courseDetails.setDescription(updateRequest.getDataMap().get(Constants.DESCRIPTION));
+            }
+
+            if(updateRequest.getDataMap().get(Constants.TYPE) != null){
+                courseDetails.setType(updateRequest.getDataMap().get(Constants.TYPE));
+            }
+
+            if(updateRequest.getDataMap().get(Constants.COST) != null){
+                courseDetails.setTitle(updateRequest.getDataMap().get(Constants.COST));
+            }
+
+            if(updateRequest.getDataMap().get(Constants.TITLE) != null){
+                courseDetails.setTitle(updateRequest.getDataMap().get(Constants.TITLE));
+            }
+
+            this.courseDetailsRepo.save(courseDetails);
+            updateResponse.setTicketId(updateRequest.getCourseId());
+            updateResponse.setMessage("Successfully Updated.");
+            updateResponse.setUpdatedFields(updateRequest.getDataMap());
+            }
+            else{
+                throw new Exception("Access Denied: User is not Authenticated for this transaction.");
+            }
+
+        }
+        catch (Exception ex){
+            StringWriter stringWriter = new StringWriter();
+            ex.printStackTrace(new PrintWriter(stringWriter));
+            updateResponse.setTicketId(updateRequest.getCourseId());
+            updateResponse.setMessage("Exception while updating details\n."+stringWriter);
+            updateResponse.setUpdatedFields(updateRequest.getDataMap());
+        }
         return updateResponse;
     }
 
-    @Override
-    public UpdateResponse updateStatus(UpdateRequest updateRequest) throws Exception {
-        UpdateResponse updateResponse = new UpdateResponse();
-//        try{
-//            TicketStatus ticketStatus = this.ticketStatusRepo.findByTicketId(updateRequest.getTicketId());
-//            if(updateRequest.getDataMap().get(Constants.STATUS) != null){
-//                ticketStatus.setStatus(updateRequest.getDataMap().get(Constants.STATUS));
-//            }
-//
-//            this.ticketStatusRepo.save(ticketStatus);
-//
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Successfully Updated.");
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//        }
-//        catch (Exception ex){
-//            StringWriter stringWriter = new StringWriter();
-//            ex.printStackTrace(new PrintWriter(stringWriter));
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Exception while updating details\n."+stringWriter);
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//        }
-
-        return updateResponse;
-    }
 
     @Override
-    public UpdateResponse updateResponse(UpdateRequest updateRequest) throws Exception {
+    public UpdateResponse deleteCourse(DeleteRequest deleteRequest) throws Exception {
         UpdateResponse updateResponse = new UpdateResponse();
-//        try{
-//            TicketResponse ticketStatus = this.ticketResponseRepo.findByTicketId(updateRequest.getTicketId());
-//            if(updateRequest.getDataMap().get(Constants.RESPONSE) != null){
-//                ticketStatus.setResponse(updateRequest.getDataMap().get(Constants.RESPONSE));
-//            }
-//
-//            this.ticketResponseRepo.save(ticketStatus);
-//
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Successfully Updated.");
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//        }
-//        catch (Exception ex){
-//            StringWriter stringWriter = new StringWriter();
-//            ex.printStackTrace(new PrintWriter(stringWriter));
-//            updateResponse.setTicketId(updateRequest.getTicketId());
-//            updateResponse.setMessage("Exception while updating details\n."+stringWriter);
-//            updateResponse.setUpdatedFields(updateRequest.getDataMap());
-//        }
+        try{
+            CourseDetails courseDetails = this.courseDetailsRepo.findByCourseId(deleteRequest.getCourseId());
+            if(courseDetails.getCreateUser().equalsIgnoreCase(deleteRequest.getUsername())){
 
-        return updateResponse;
-    }
+            this.courseDetailsRepo.delete(courseDetails);
+            updateResponse.setTicketId(deleteRequest.getCourseId());
+            updateResponse.setMessage("Successfully Deleted.");
+            updateResponse.setUpdatedFields(null);
 
-    @Override
-    public UpdateResponse deleteTicket(String ticketId) throws Exception {
-        UpdateResponse updateResponse = new UpdateResponse();
-//        try{
-//            TicketResponse ticketResponse = this.ticketResponseRepo.findByTicketId(ticketId);
-////            CourseDetails courseDetails = this.courseDetailsRepo.findByTicketId(ticketId);
-//            TicketStatus ticketStatus1 = this.ticketStatusRepo.findByTicketId(ticketId);
-//            AssignedAgent assignedAgent = this.assignedAgentRepo.findByTicketId(ticketId);
-//
-////            this.courseDetailsRepo.delete(courseDetails);
-//            this.ticketStatusRepo.delete(ticketStatus1);
-//            this.ticketResponseRepo.delete(ticketResponse);
-//            this.assignedAgentRepo.delete(assignedAgent);
-//
-//            updateResponse.setTicketId(ticketId);
-//            updateResponse.setMessage("Successfully Deleted.");
-//            updateResponse.setUpdatedFields(null);
-//        }
-//        catch (Exception ex){
-//            StringWriter stringWriter = new StringWriter();
-//            ex.printStackTrace(new PrintWriter(stringWriter));
-//            updateResponse.setTicketId(ticketId);
-//            updateResponse.setMessage("Exception while Deleting\n."+stringWriter);
-//            updateResponse.setUpdatedFields(null);
-//        }
+            }else {
+                throw new Exception("Access Denied: User is not Authenticated for this transaction.");
+            }
+        }
+        catch (Exception ex){
+            StringWriter stringWriter = new StringWriter();
+            ex.printStackTrace(new PrintWriter(stringWriter));
+            updateResponse.setTicketId(deleteRequest.getCourseId());
+            updateResponse.setMessage("Exception while Deleting\n."+stringWriter);
+            updateResponse.setUpdatedFields(null);
+        }
 
         return updateResponse;
     }

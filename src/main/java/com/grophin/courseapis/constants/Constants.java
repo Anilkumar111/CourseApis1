@@ -7,7 +7,7 @@ public class Constants {
 
 
     public static final String STATUS="status";
-    public static final String RESPONSE="response";
+    public static final String COST="cost";
     public static final String TYPE="type";
     public static final String DESCRIPTION="description";
     public static final String PRIORITY="priority";

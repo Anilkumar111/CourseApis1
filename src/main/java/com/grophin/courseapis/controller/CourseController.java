@@ -1,6 +1,7 @@
 package com.grophin.courseapis.controller;
 
 import com.grophin.courseapis.dto.request.CourseCreateRequest;
+import com.grophin.courseapis.dto.request.DeleteRequest;
 import com.grophin.courseapis.dto.request.UpdateRequest;
 import com.grophin.courseapis.dto.response.CreateResponse;
 import com.grophin.courseapis.dto.response.UpdateResponse;
@@ -78,16 +79,6 @@ public class CourseController {
     ResponseEntity<List<CourseDetails>> findByTitle(@PathVariable String title) throws Exception{
         return new ResponseEntity<>(courseServiceInterface.fetchByTitle(title),HttpStatus.OK);
     }
-//
-//    @GetMapping(
-//            path = "/fetch/status/{status}",
-//            produces = {
-//                    MediaType.APPLICATION_JSON_VALUE
-//            }
-//    )
-//    ResponseEntity<List<CourseDetails>> findByStatus(@PathVariable String status) throws Exception{
-//        return new ResponseEntity<>(courseServiceInterface.fetchByStatus(status),HttpStatus.OK);
-//    }
 
     @PutMapping(
             path = "/updatedetails",
@@ -102,40 +93,16 @@ public class CourseController {
         return new ResponseEntity<>(courseServiceInterface.updateDetails(updateRequest),HttpStatus.OK);
     }
 
-    @PutMapping(
-            path = "/updatestatus",
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE
-            },
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE
-            }
-    )
-    ResponseEntity<UpdateResponse> updateStatus(@Valid @RequestBody UpdateRequest updateRequest) throws Exception{
-        return new ResponseEntity<>(courseServiceInterface.updateStatus(updateRequest),HttpStatus.OK);
-    }
 
-    @PutMapping(
-            path = "/updateresponse",
-            consumes = {
-                    MediaType.APPLICATION_JSON_VALUE
-            },
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE
-            }
-    )
-    ResponseEntity<UpdateResponse> updateReponse(@Valid @RequestBody UpdateRequest updateRequest) throws Exception{
-        return new ResponseEntity<>(courseServiceInterface.updateResponse(updateRequest),HttpStatus.OK);
-    }
 
     @DeleteMapping(
-            path="/deleteticket/{ticketId}",
+            path="/deletecourse",
             produces = {
                     MediaType.APPLICATION_JSON_VALUE
             }
     )
-    public ResponseEntity<UpdateResponse> deleteTickets(@PathVariable String ticketId) throws Exception{
-        return new ResponseEntity<>(courseServiceInterface.deleteTicket(ticketId),HttpStatus.OK);
+    public ResponseEntity<UpdateResponse> deleteCourse(@Valid @RequestBody DeleteRequest deleteRequest) throws Exception{
+        return new ResponseEntity<>(courseServiceInterface.deleteCourse(deleteRequest),HttpStatus.OK);
     }
 
 }
